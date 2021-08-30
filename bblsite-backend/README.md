@@ -34,6 +34,8 @@ pip install -r requirements.txt
 ./manage init_league
 ```
 
+- all passwords are `password`
+
 6. start the server
 
 ```
@@ -57,6 +59,7 @@ pasword: password
 - GET http://localhost:8000/api/v1/player
 - GET http://localhost:8000/api/v1/player/<player_id>
 - GET http://localhost:8000/api/v1/site_stats
+
 
 
 
