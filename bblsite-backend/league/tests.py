@@ -1,3 +1,5 @@
+import math
+
 from django.core.management import call_command
 from django.test import TestCase, RequestFactory
 from rest_framework.test import force_authenticate
@@ -52,6 +54,11 @@ class StatTests(TestCase):
         winner = self.game.home_team if self.game.home_team_score > self.game.away_team_score else self.game.away_team
         self.assertEqual(winner, self.game.winner)
 
+    def test_team_ninetieth_percentile(self):
+        samples = sorted(player.average_score for player in self.team.player_set.all())
+        ninetieth_percentile_index = math.ceil(0.9 * len(samples)) - 1
+        self.assertEqual(samples[ninetieth_percentile_index], self.team.ninetieth_percentile)
+
 
 class TeamViewsetTests(TestCase):
 
@@ -84,3 +91,7 @@ class TeamViewsetTests(TestCase):
         self.assertEqual(response.status_text, 'Forbidden')
         error_detail = response.data.get('detail')
         self.assertEqual(str(error_detail), 'You do not have permission to perform this action.')
+
+    def test_coach_can_view_own_team_ninetieth_percentile(self):
+        request = self.factory.get(f'/api/v1/ninetieth/{self.coach_team.id}/')
+        force_authenticate(request, user=self.coach)

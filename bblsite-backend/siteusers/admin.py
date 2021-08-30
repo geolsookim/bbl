@@ -9,8 +9,8 @@ class SiteUserAdmin(admin.ModelAdmin):
 
 class PlayerAdmin(admin.ModelAdmin):
     list_display = ('get_name', 'height', 'get_team')
-    fields = ['get_name', 'height', 'get_team', 'average_score', 'games_played']
-    readonly_fields = ['get_name', 'get_team', 'average_score', 'games_played']
+    fields = ['get_name', 'height', 'get_team', 'average_score', 'games_played', 'total_time']
+    readonly_fields = ['get_name', 'get_team', 'average_score', 'games_played', 'total_time']
 
     @admin.display(description='Name', ordering='siteusers__name')
     def get_name(self, obj):

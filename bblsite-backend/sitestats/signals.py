@@ -2,6 +2,7 @@ import datetime
 
 from django.dispatch import receiver
 from django.contrib.auth.signals import user_logged_in, user_logged_out
+from django.utils import timezone
 
 from sitestats.models import SiteStat
 from siteusers.models import Player
@@ -17,7 +18,7 @@ def log_user_login(sender, request, user, **kwargs):
         SiteStat.objects.create(
             player=player,
             event=SiteStat.Event.LOGIN,
-            timestamp=datetime.datetime.now()
+            timestamp=timezone.now()
         )
 
 
@@ -31,9 +32,9 @@ def log_user_logout(sender, request, user, **kwargs):
         logout_event = SiteStat.objects.create(
             player=player,
             event=SiteStat.Event.LOGOUT,
-            timestamp=datetime.datetime.now()
+            timestamp=timezone.now()
         )
         last_login_event = SiteStat.objects.filter(player=player, event=SiteStat.Event.LOGIN).order_by('-timestamp').first()
         time_diff = logout_event.timestamp - last_login_event.timestamp
-        player.total_time += int(time_diff.total_seconds)
+        player.total_time += int(time_diff.total_seconds())
         player.save()

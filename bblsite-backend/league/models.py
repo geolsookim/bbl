@@ -1,3 +1,5 @@
+import math
+
 from django.db import models
 
 from siteusers.models import SiteUser, Player
@@ -16,6 +18,16 @@ class Team(models.Model):
         away_game_scores = [game.away_team_score for game in Game.objects.filter(away_team=self)]
         combined_scores = home_game_scores + away_game_scores
         return round(sum(combined_scores)/len(combined_scores), 2)
+
+    @property
+    def ninetieth_percentile(self) -> float:
+        samples = sorted(player.average_score for player in self.player_set.all())
+        ninetieth_percentile_index = math.ceil(0.9 * len(samples)) - 1
+        return samples[ninetieth_percentile_index]
+
+    @property
+    def ninetieth_percentile_players(self) -> list:
+        return [player for player in self.player_set.all() if player.average_score >= self.ninetieth_percentile]
 
 
 class Game(models.Model):

@@ -19,6 +19,7 @@ class Player(models.Model):
     height = models.IntegerField(help_text="Height in centimetres", default=0)
     team = models.ForeignKey('league.Team', on_delete=models.CASCADE)
     game = models.ManyToManyField('league.Game', through='league.PlayerGame', blank=True, related_name='players')
+    total_time = models.IntegerField(help_text='Total time spent on site in seconds.', default=0)
 
     @property
     def average_score(self):

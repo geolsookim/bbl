@@ -8,11 +8,12 @@ class TeamSerialiser(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()
     coach = serializers.SerializerMethodField()
     average_score = serializers.SerializerMethodField()
+    ninetieth_percentile = serializers.SerializerMethodField
     members = PlayerSerialiser(source='player_set', many=True)
 
     class Meta:
         model = Team
-        fields = ['id', 'name', 'coach', 'average_score', 'members']
+        fields = ['id', 'name', 'coach', 'average_score', 'ninetieth_percentile', 'members']
 
     def get_name(self, team):
         return team.name.title()
@@ -22,6 +23,9 @@ class TeamSerialiser(serializers.ModelSerializer):
 
     def get_average_score(self, team):
         return team.average_score
+
+    def get_ninetieth_percentile(self, team):
+        return team.ninetieth_percentile
 
 
 class GameSerialiser(serializers.ModelSerializer):
