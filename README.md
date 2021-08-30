@@ -50,13 +50,13 @@ pasword: password
 
 ### REST Endpoints
 
-
 - GET http://localhost:8000/api/v1/game
 - GET http://localhost:8000/api/v1/team
 - GET http://localhost:8000/api/v1/team/<team_id>
 - GET http://localhost:8000/api/v1/team/<team_id>/ninetieth
 - GET http://localhost:8000/api/v1/player
 - GET http://localhost:8000/api/v1/player/<player_id>
+- GET http://localhost:8000/api/v1/site_stats
 
 
 
