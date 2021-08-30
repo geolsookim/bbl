@@ -50,7 +50,6 @@ pasword: password
 
 ### REST Endpoints
 
-
 - GET http://localhost:8000/api/v1/game
 - GET http://localhost:8000/api/v1/team
 - GET http://localhost:8000/api/v1/team/<team_id>
@@ -61,17 +60,3 @@ pasword: password
 
 
 
-### React App
-
-1. cd bblsite-frontend
-
-2. npm install
-
-3. npm start
-
-4. browse to http://localhost:3000
-
-```
-username: admin@bbl.com
-password password
-```
